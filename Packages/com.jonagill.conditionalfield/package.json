@@ -1,0 +1,8 @@
+{
+  "name": "com.jonagill.conditionalfield",
+  "description": "A custom attribute to show and hide serialized fields based on other fields and properties.",
+  "version": "1.0.0",
+  "unity": "2019.2",
+  "displayName": "Conditional Field",
+  "hideInEditor": false
+}

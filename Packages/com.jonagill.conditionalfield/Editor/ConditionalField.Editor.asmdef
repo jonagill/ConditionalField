@@ -1,0 +1,20 @@
+{
+    "name": "ConditionalField.Editor",
+    "references": [
+        "GUID:a85de84b91c57d140ba049ad681c2ca5",
+        "GUID:343deaaf83e0cee4ca978e7df0b80d21",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:102bc6560c5f6b54fb797d7d14a2a5b0"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
