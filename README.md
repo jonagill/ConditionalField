@@ -8,12 +8,13 @@ We recommend you install Conditional Field via [OpenUPM](https://openupm.com/pac
 2. Add a new Scoped Registry (or edit the existing OpenUPM entry) to read:
     * Name: `package.openupm.com`
     * URL: `https://package.openupm.com`
-    * Scope(s): `com.jonagill.conditionalfield`
+    * Scope(s): `com.jonagill.conditionalfield` and `com.jonagill.unityinternalaccess`
 3. Click Save (or Apply)
 4. Open Window/Package Manager
 5. Click the + button
-6. Select Add package by name...
-6. Click Add
+6. Select `Add package by name...` or `Add package from git URL...` 
+7. Enter `com.jonagill.unityinternalaccess` and click Add
+8. Repeat steps 6 and 7 with `com.jonagill.conditionalfield`
 
 ## Basic usage
 To mark a field as conditionally displayed, simply add the `[Conditional]` attribute to it, as below:
