@@ -20,6 +20,9 @@ namespace ConditionalField
 		/// Marks a serialized field to only be displayed if the target field/property/method returns true
 		/// </summary>
 		public ConditionalAttribute(string targetName, Conditional.Options options = DefaultOptions)
+#if UNITY_2022_1_OR_NEWER || UNITY_2023_1_OR_NEWER || UNITY_6000_0_OR_NEWER
+			: base(applyToCollection: true)
+#endif
 		{
 			this.targetName = targetName;
 			hasExpectedValue = false;
@@ -32,6 +35,9 @@ namespace ConditionalField
 		/// returns the expected value
 		/// </summary>
 		public ConditionalAttribute(string targetName, object expectedValue, Conditional.Options options = DefaultOptions)
+#if UNITY_2022_1_OR_NEWER || UNITY_2023_1_OR_NEWER || UNITY_6000_0_OR_NEWER
+			: base(applyToCollection: true)
+#endif
 		{
 			this.targetName = targetName;
 			this.hasExpectedValue = true;
@@ -44,6 +50,9 @@ namespace ConditionalField
 		/// returns one of the expected values
 		/// </summary>
 		public ConditionalAttribute(string targetName, Conditional.Options options = DefaultOptions, params object[] expectedValues)
+#if UNITY_2022_1_OR_NEWER || UNITY_2023_1_OR_NEWER || UNITY_6000_0_OR_NEWER
+			: base(applyToCollection: true)
+#endif
 		{
 			this.targetName = targetName;
 			this.hasExpectedValue = true;
