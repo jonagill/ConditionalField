@@ -9,13 +9,13 @@ using UnityInternalAccess.Editor;
 
 namespace ConditionalField
 {
-    [CustomPropertyDrawer(typeof(ConditionalAttribute), true)]
+    [CustomPropertyDrawer(typeof(ConditionalFieldAttribute), true)]
     public class ConditionalHidePropertyDrawer : PropertyDrawer
     {
         private static readonly BindingFlags BINDING_FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
         
-        private Dictionary<Type, Dictionary<string, ConditionalAttribute>> cachedAttributeDict = 
-            new Dictionary<Type, Dictionary<string, ConditionalAttribute>>();
+        private Dictionary<Type, Dictionary<string, ConditionalFieldAttribute>> cachedAttributeDict = 
+            new Dictionary<Type, Dictionary<string, ConditionalFieldAttribute>>();
 
         private float HelpBoxHeight => EditorGUIUtility.singleLineHeight + 15f;
 
@@ -52,7 +52,7 @@ namespace ConditionalField
                     return;
                 }
 
-                ConditionalAttribute conditionalAttribute = (ConditionalAttribute) attribute;
+                ConditionalFieldAttribute conditionalFieldAttribute = (ConditionalFieldAttribute) attribute;
                 bool enabled = ShouldRenderField( property, out string warning );
 
                 if (!string.IsNullOrEmpty(warning))
@@ -66,7 +66,7 @@ namespace ConditionalField
                 }
                 
                 rootElement.style.display =
-                    enabled || ((conditionalAttribute.options & Conditional.Options.ShowDisabled) != 0 ) ?
+                    enabled || ((conditionalFieldAttribute.options & Conditional.Options.ShowDisabled) != 0 ) ?
                         DisplayStyle.Flex :
                         DisplayStyle.None;
                 
@@ -111,7 +111,7 @@ namespace ConditionalField
         
         private bool ShouldRenderField(SerializedProperty property, out string warning)
         {
-            var conditional = (ConditionalAttribute)attribute;
+            var conditional = (ConditionalFieldAttribute)attribute;
             string propertyPath = property.propertyPath;
             string parentPropertyPath = SerializedPropertyExtensions.GetParentPropertyPath(propertyPath, skipArrays: true);
             
@@ -138,11 +138,11 @@ namespace ConditionalField
             return true;
         }
 
-        private bool ShouldRenderField(object parentObject, ConditionalAttribute conditional, out string warning)
+        private bool ShouldRenderField(object parentObject, ConditionalFieldAttribute conditionalField, out string warning)
         {
-            var targetName = conditional.targetName;
+            var targetName = conditionalField.targetName;
 
-            if (ProcessTargetObject(conditional, parentObject, targetName, out bool show, out warning))
+            if (ProcessTargetObject(conditionalField, parentObject, targetName, out bool show, out warning))
             {
                 if (!show)
                 {
@@ -150,11 +150,11 @@ namespace ConditionalField
                 }
             }
 
-            if ((conditional.options & Conditional.Options.Chain) != 0)
+            if ((conditionalField.options & Conditional.Options.Chain) != 0)
             {
                 if (!cachedAttributeDict.TryGetValue(parentObject.GetType(), out var dict))
                 {
-                    dict = new Dictionary<string, ConditionalAttribute>();
+                    dict = new Dictionary<string, ConditionalFieldAttribute>();
                     cachedAttributeDict[parentObject.GetType()] = dict;
                 }
 
@@ -163,7 +163,7 @@ namespace ConditionalField
                     FieldInfo otherProperty = parentObject.GetType().GetField(targetName, BINDING_FLAGS);
                     if (otherProperty != null)
                     {
-                        attr = otherProperty.GetCustomAttribute<ConditionalAttribute>();
+                        attr = otherProperty.GetCustomAttribute<ConditionalFieldAttribute>();
                     }
                     dict[targetName] = attr;
                 }
@@ -180,7 +180,7 @@ namespace ConditionalField
         /// <summary>
         /// Processes a particular object. Returns true if the object is forcing a specific visibility state
         /// </summary>
-        private bool ProcessTargetObject(ConditionalAttribute conditional, object targetObject, string targetName, out bool shouldShow, out string warning)
+        private bool ProcessTargetObject(ConditionalFieldAttribute conditionalField, object targetObject, string targetName, out bool shouldShow, out string warning)
         {
             bool hasTarget = false;
             object targetValue = null;
@@ -230,16 +230,16 @@ namespace ConditionalField
                 var matchedExpectedValue = false;
 
                 // Conditionals can have more than one expected value (they are ORed together).
-                foreach (var expectedValue in conditional.expectedValues)
+                foreach (var expectedValue in conditionalField.expectedValues)
                 {
-                    if (CompareTargetWithExpectedValue(targetValue, conditional.hasExpectedValue, expectedValue))
+                    if (CompareTargetWithExpectedValue(targetValue, conditionalField.hasExpectedValue, expectedValue))
                     {
                         matchedExpectedValue = true;
                         break;
                     }
                 }
 
-                if ((conditional.options & Conditional.Options.Invert) != 0)
+                if ((conditionalField.options & Conditional.Options.Invert) != 0)
                 {
                     matchedExpectedValue = !matchedExpectedValue;
                 }

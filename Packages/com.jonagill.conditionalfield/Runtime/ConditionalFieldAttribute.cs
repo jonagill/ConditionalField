@@ -7,7 +7,7 @@ namespace ConditionalField
 	/// Attribute that marks a serialized field to only display in the inspector
 	/// if the given target field/property/method has the given expected value.
 	/// </summary>
-	public class ConditionalAttribute : PropertyAttribute
+	public class ConditionalFieldAttribute : PropertyAttribute
 	{
 		public const Conditional.Options DefaultOptions = Conditional.Options.Chain;
 		
@@ -19,7 +19,7 @@ namespace ConditionalField
 		/// <summary>
 		/// Marks a serialized field to only be displayed if the target field/property/method returns true
 		/// </summary>
-		public ConditionalAttribute(string targetName, Conditional.Options options = DefaultOptions)
+		public ConditionalFieldAttribute(string targetName, Conditional.Options options = DefaultOptions)
 #if UNITY_2022_1_OR_NEWER || UNITY_2023_1_OR_NEWER || UNITY_6000_0_OR_NEWER
 			: base(applyToCollection: true)
 #endif
@@ -34,7 +34,7 @@ namespace ConditionalField
 		/// Marks a serialized field to only be displayed if the target field/property/method
 		/// returns the expected value
 		/// </summary>
-		public ConditionalAttribute(string targetName, object expectedValue, Conditional.Options options = DefaultOptions)
+		public ConditionalFieldAttribute(string targetName, object expectedValue, Conditional.Options options = DefaultOptions)
 #if UNITY_2022_1_OR_NEWER || UNITY_2023_1_OR_NEWER || UNITY_6000_0_OR_NEWER
 			: base(applyToCollection: true)
 #endif
@@ -49,7 +49,7 @@ namespace ConditionalField
 		/// Marks a serialized field to only be displayed if the target field/property/method
 		/// returns one of the expected values
 		/// </summary>
-		public ConditionalAttribute(string targetName, Conditional.Options options = DefaultOptions, params object[] expectedValues)
+		public ConditionalFieldAttribute(string targetName, Conditional.Options options = DefaultOptions, params object[] expectedValues)
 #if UNITY_2022_1_OR_NEWER || UNITY_2023_1_OR_NEWER || UNITY_6000_0_OR_NEWER
 			: base(applyToCollection: true)
 #endif
