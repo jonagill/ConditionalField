@@ -10,7 +10,7 @@ using UnityInternalAccess.Editor;
 namespace ConditionalField
 {
     [CustomPropertyDrawer(typeof(ConditionalFieldAttribute), true)]
-    public class ConditionalHidePropertyDrawer : PropertyDrawer
+    public class ConditionalFieldDrawer : PropertyDrawer
     {
         private static readonly BindingFlags BINDING_FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
         
