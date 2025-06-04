@@ -17,41 +17,41 @@ We recommend you install Conditional Field via [OpenUPM](https://openupm.com/pac
 8. Repeat steps 6 and 7 with `com.jonagill.conditionalfield`
 
 ## Basic usage
-To mark a field as conditionally displayed, simply add the `[Conditional]` attribute to it, as below:
+To mark a field as conditionally displayed, simply add the `[ConditionalField]` attribute to it, as below:
 
 ```
 // Displays if the target boolean is true
-[SerializeField, Conditional(nameof(_toggleValue))] private int _conditionalField;
+[SerializeField, ConditionalField(nameof(_toggleValue))] private int _conditionalField;
 [SerializeField] private bool _toggleValue;
 ```
 
-The `[Conditional]` attribute requires the name of another field, property, or parameterless method on the same object. When deciding whether to display your field or not, we check the current value of the target field and compare it against an expected value or values. Here are some other examples:
+The `[ConditionalField]` attribute requires the name of another field, property, or parameterless method on the same object. When deciding whether to display your field or not, we check the current value of the target field and compare it against an expected value or values. Here are some other examples:
 
 ```
 // Displays if the target enum is a specific value
 [SerializeField] private ModeEnum _mode;
-[SerializeField, Conditional(nameof(_mode), ModeEnum.Flight)] private string _conditionalField;
+[SerializeField, ConditionalField(nameof(_mode), ModeEnum.Flight)] private string _conditionalField;
 
 ```
 
 ```
 // Displays if the target enum is one of several specific values
 [SerializeField] private ModeEnum _mode;
-[SerializeField, Conditional(nameof(_mode), new[] { ModeEnum.Attack, ModeEnum.Flight })] private string _conditionalField;
+[SerializeField, ConditionalField(nameof(_mode), new[] { ModeEnum.Attack, ModeEnum.Flight })] private string _conditionalField;
 ```
 
 ```
 // Displays if the target property returns true
-[SerializeField, Conditional(nameof(TimeElapsed))] private string _conditionalField;
+[SerializeField, ConditionalField(nameof(TimeElapsed))] private string _conditionalField;
 private bool TimeElapsed => Time.realtimeSinceStartup > 1f;
 ```
 
 ## Options
 
-You can pass several options into your `[Conditional]` attribute to modify its behavior.
+You can pass several options into your `[ConditionaField]` attribute to modify its behavior.
 
 * `Options.Invert`: If set, your field when be hidden when the target value does NOT match the expected value(s).
-* `Options.Chain`: This is set by default. If set, your field will be hidden if its target value is also a `[Conditional]` field and is currently hidden.
+* `Options.Chain`: This is set by default. If set, your field will be hidden if its target value is also a `[ConditionalField]` field and is currently hidden.
 * `Options.ShowDisabled`: If set, your field will be drawn disabled instead of completely hidden.
 
 
