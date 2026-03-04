@@ -2,7 +2,18 @@
 Conditional Field is a simple Unity extension that allows you to easily show and hide serialized fields in the Inspector window based on other values on the target object.
 
 ## Installation
-We recommend you install Conditional Field via [OpenUPM](https://openupm.com/packages/com.jonagill.conditionalfield/). Per OpenUPM's documentation:
+Conditional Field relies on my [Unity Internal Access](https://github.com/jonagill/UnityInternalAccess) library for certain functionality.
+
+### Install via Git
+1. Open Window/Package Manager
+2. Click the + button
+3. Select Add Package From Git URL
+4. Paste `https://github.com/jonagill/UnityInternalAccess.git?path=Packages/com.jonagill.unityinternalaccess` into the URL field
+5. Click Install
+6. Repeat, pasting `https://github.com/jonagill/ConditionalField.git?path=Packages/com.jonagill.conditionalfield` instead
+
+### Installation via OpenUPM
+To install  via [OpenUPM](https://openupm.com/packages/com.jonagill.autofill/):
 
 1. Open `Edit/Project Settings/Package Manager`
 2. Add a new Scoped Registry (or edit the existing OpenUPM entry) to read:
