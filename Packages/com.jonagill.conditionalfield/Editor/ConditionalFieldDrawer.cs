@@ -26,7 +26,7 @@ namespace ConditionalField
             if (enabled || (conditional.options & Conditional.Options.ShowDisabled) != 0)
             {
                 using (new EditorGUI.DisabledGroupScope(!enabled))
-                {o
+                {
                     if (!string.IsNullOrEmpty(warning))
                     {
                         position.height = HelpBoxHeight;
