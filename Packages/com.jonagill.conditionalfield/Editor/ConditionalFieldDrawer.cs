@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
@@ -21,20 +21,25 @@ namespace ConditionalField
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (ShouldRenderField(property, out string warning))
+            var conditional = (ConditionalFieldAttribute)attribute;
+            bool enabled = ShouldRenderField(property, out string warning);
+            if (enabled || (conditional.options & Conditional.Options.ShowDisabled) != 0)
             {
-                if (!string.IsNullOrEmpty(warning))
-                {
-                    position.height = HelpBoxHeight;
-                    EditorGUI.HelpBox(
-                        position,
-                        warning,
-                        MessageType.Warning);
-                    position.y += HelpBoxHeight;
-                    position.height = EditorGUI.GetPropertyHeight(property, label);
-                }
+                using (new EditorGUI.DisabledGroupScope(!enabled))
+                {o
+                    if (!string.IsNullOrEmpty(warning))
+                    {
+                        position.height = HelpBoxHeight;
+                        EditorGUI.HelpBox(
+                            position,
+                            warning,
+                            MessageType.Warning);
+                        position.y += HelpBoxHeight;
+                        position.height = EditorGUI.GetPropertyHeight(property, label);
+                    }
 
-                DefaultPropertyDrawer.PropertyField(position, property, label, true);
+                    DefaultPropertyDrawer.PropertyField(position, property, label, true);
+                }
             }
         }
         
