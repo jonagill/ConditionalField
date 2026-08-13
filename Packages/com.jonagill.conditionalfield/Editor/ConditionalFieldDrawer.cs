@@ -98,7 +98,9 @@ namespace ConditionalField
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            if (ShouldRenderField(property, out string warning))
+            var conditional = (ConditionalFieldAttribute)attribute;
+            bool enabled = ShouldRenderField(property, out string warning);
+            if (enabled || (conditional.options & Conditional.Options.ShowDisabled) != 0)
             {
                 var height = DefaultPropertyDrawer.GetPropertyHeight(property, label);
                 if (!string.IsNullOrEmpty(warning))
